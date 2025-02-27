@@ -10,49 +10,42 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<Map<String, dynamic>> categories = [
-    {'name': 'Health', 'icon': Icons.local_hospital},
-    {'name': 'Food', 'icon': Icons.fastfood},
-    {'name': 'Travel', 'icon': Icons.flight},
-    {'name': 'Education', 'icon': Icons.school},
-    {'name': 'Animals', 'icon': Icons.pets},
-    {'name': 'Environment', 'icon': Icons.eco},
-    {'name': 'Appearance', 'icon': Icons.face},
-    {'name': 'Communication', 'icon': Icons.message},
-    {'name': 'Technology', 'icon': Icons.computer},
-    {'name': 'Sports', 'icon': Icons.sports},
-    {'name': 'Financial', 'icon': Icons.attach_money},
-    {'name': 'Transportation', 'icon': Icons.directions_bus},
-
-    {'name': 'Health', 'icon': Icons.local_hospital},
-    {'name': 'Food', 'icon': Icons.fastfood},
-    {'name': 'Travel', 'icon': Icons.flight},
-    {'name': 'Education', 'icon': Icons.school},
-    {'name': 'Animals', 'icon': Icons.pets},
-    {'name': 'Environment', 'icon': Icons.eco},
-    {'name': 'Appearance', 'icon': Icons.face},
-    {'name': 'Communication', 'icon': Icons.message},
-    {'name': 'Technology', 'icon': Icons.computer},
-    {'name': 'Sports', 'icon': Icons.sports},
-    {'name': 'Financial', 'icon': Icons.attach_money},
-    {'name': 'Transportation', 'icon': Icons.directions_bus},
-
-    {'name': 'Health', 'icon': Icons.local_hospital},
-    {'name': 'Food', 'icon': Icons.fastfood},
-    {'name': 'Travel', 'icon': Icons.flight},
-    {'name': 'Education', 'icon': Icons.school},
-    {'name': 'Animals', 'icon': Icons.pets},
-    {'name': 'Environment', 'icon': Icons.eco},
-    {'name': 'Appearance', 'icon': Icons.face},
-    {'name': 'Communication', 'icon': Icons.message},
-    {'name': 'Technology', 'icon': Icons.computer},
-    {'name': 'Sports', 'icon': Icons.sports},
-    {'name': 'Financial', 'icon': Icons.attach_money},
-    {'name': 'Transportation', 'icon': Icons.directions_bus},
+    {'name': 'ডাক্তার', 'icon': 'assets/icons/doctor.png'},
+    {'name': 'হাসপাতাল', 'icon': 'assets/icons/hospital.png'},
+    {'name': 'বাসের সময়সূচি', 'icon': 'assets/icons/bus.png'},
+    {'name': 'ট্রেনের সময়সূচি', 'icon': 'assets/icons/train.png'},
+    {'name': 'ফায়ার সার্ভিস', 'icon': 'assets/icons/fire_service.png'},
+    {'name': 'থানা-পুলিশ', 'icon': 'assets/icons/thana_polish.png'},
+    {'name': 'রক্ত', 'icon': 'assets/icons/blood.png'},
+    {'name': 'ডায়াগনস্টিক সেন্টার', 'icon': 'assets/icons/diagnostics.png'},
+    {'name': 'বাসা ভাড়া', 'icon': 'assets/icons/house_rent.png'},
+    {'name': 'শপিং', 'icon': 'assets/icons/shopping.png'},
+    {'name': 'কুরিয়ার সার্ভিস', 'icon': 'assets/icons/courier_service.png'},
+    {'name': 'বিদ্যুৎ অফিস', 'icon': 'assets/icons/biddut_office.png'},
+    {'name': 'হোটেল', 'icon': 'assets/icons/hotel.png'},
+    {'name': 'গাড়ি ভাড়া', 'icon': 'assets/icons/vehicle_rent.png'},
+    {'name': 'মিস্ত্রি', 'icon': 'assets/icons/technicians.png'},
+    {'name': 'জরুরী সেবা', 'icon': 'assets/icons/emergency.png'},
+    {'name': 'পার্লার-সেলুন', 'icon': 'assets/icons/salon_parlour.png'},
+    {'name': 'রেস্টুরেন্ট', 'icon': 'assets/icons/restaurants.png'},
+    {'name': 'ফ্লাট ও জমি', 'icon': 'assets/icons/plot_sales.png'},
+    {'name': 'নার্সারি', 'icon': 'assets/icons/nursery.png'},
+    {'name': 'শিক্ষক', 'icon': 'assets/icons/teacher.png'},
+    {'name': 'শিক্ষা প্রতিষ্ঠান', 'icon': 'assets/icons/institutions.png'},
+    {'name': 'দর্শনীয় স্থান', 'icon': 'assets/icons/tourist_place.png'},
+    {'name': 'ওয়েব সাইট', 'icon': 'assets/icons/website.png'},
+    {'name': 'চাকরি', 'icon': 'assets/icons/job.png'},
+    {'name': 'উদ্যোক্তা', 'icon': 'assets/icons/entrepreneur.png'},
+    {'name': 'দৈনিক সংবাদ', 'icon': 'assets/icons/todaynews.png'},
+    {'name': 'ভিডিও', 'icon': 'assets/icons/videos.png'},
+    {'name': 'প্যাকেজ ', 'icon': 'assets/icons/packege.png'},
+    {'name': 'সাপোর্ট ', 'icon': 'assets/icons/support.png'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFEBEAFF),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GridView.builder(
@@ -60,13 +53,14 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisCount: 4,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            childAspectRatio: 8 / 8,
+            childAspectRatio: 8 / 9,
           ),
           itemCount: categories.length,
           itemBuilder: (context, index) {
             final category = categories[index];
             return GestureDetector(
               onTap: () {
+                print('Clicked on ${category['name']}');
                 /*Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -77,14 +71,21 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: Card(
                 elevation: 2,
-                color: Color(0xFF03a9ff),//Color(0xFF00aeef),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(category['icon'], size: 40,color: Colors.white,),
-                    const SizedBox(height: 10),
-                    Text(category['name'], style: const TextStyle(fontSize: 11)),
-                  ],
+                // color: Color(0xFF03a9ff),//Color(0xFF00aeef),
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        category['icon'],
+                        width: 45,
+                        // height: 40,
+                      ),
+                      Text(category['name'], style: TextStyle(fontSize: 12),textAlign: TextAlign.center,),
+                    ],
+                  ),
                 ),
               ),
             );
