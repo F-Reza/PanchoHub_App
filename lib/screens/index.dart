@@ -1,11 +1,11 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dots_indicator/dots_indicator.dart';
+
 import 'package:flutter/material.dart';
 import 'package:pancho_hub/screens/contact_screen.dart';
 import 'package:pancho_hub/screens/notification_screen.dart';
 import 'package:pancho_hub/screens/profile_screen.dart';
 import '../widgets/main_drawer.dart';
 import 'home_screen.dart';
+import 'slider_screen.dart';
 
 class IndexScreen extends StatefulWidget {
   static const String routeName = '/index';
@@ -17,16 +17,6 @@ class IndexScreen extends StatefulWidget {
 
 class _IndexScreenState extends State<IndexScreen> {
   int _selectedIndex = 0;
-
-  final items = [
-    Image.asset('assets/sliders/slider-1.jpg',fit: BoxFit.fitWidth),
-    Image.asset('assets/sliders/slider-2.jpg',fit: BoxFit.fitWidth),
-    Image.asset('assets/sliders/slider-3.jpg',fit: BoxFit.fitWidth),
-    Image.asset('assets/sliders/slider-4.jpg',fit: BoxFit.fitWidth),
-    Image.asset('assets/sliders/slider-5.jpg',fit: BoxFit.fitWidth),
-    Image.asset('assets/sliders/slider-6.jpg',fit: BoxFit.fitWidth),
-  ];
-  int currentIndex = 0;
 
   List popupItemsList = [
     {'icon': Icons.settings, 'title': 'Settings'},
@@ -63,6 +53,7 @@ class _IndexScreenState extends State<IndexScreen> {
             //fontStyle: FontStyle.italic,
           ),
         ),
+        centerTitle: true,
         /*actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -92,39 +83,6 @@ class _IndexScreenState extends State<IndexScreen> {
       //body: _pages[_selectedIndex],
       body: Column(
         children: [
-          Stack(
-            children: [
-              CarouselSlider(
-                options: CarouselOptions(
-                  autoPlay: true,
-                  //enlargeCenterPage: false,
-                  enlargeCenterPage: true,
-                  viewportFraction: 0.7,
-                  aspectRatio: 2.0,
-                  initialPage: 2,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      currentIndex = index;
-                    });
-                  },
-                ),
-                items: items,
-              ),
-              Positioned(
-                bottom: 25,
-                left: 50,
-                right: 50,
-                child: DotsIndicator(
-                  dotsCount: items.length,
-                  position: currentIndex,
-                  decorator: const DotsDecorator(
-                    color: Colors.white,
-                    activeColor: Colors.redAccent,
-                  ),
-                ),
-              ),
-            ],
-          ),
           Expanded(child: _pages[_selectedIndex]),
         ],
       ),

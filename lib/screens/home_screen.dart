@@ -1,4 +1,11 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:pancho_hub/screens/doctors_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/slider_provider.dart';
+import '../utils/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
@@ -42,56 +49,142 @@ class _HomeScreenState extends State<HomeScreen> {
     {'name': 'সাপোর্ট ', 'icon': 'assets/icons/support.png'},
   ];
 
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      Provider.of<SliderProvider>(context, listen: false).loadSliders();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final sliderProvider = Provider.of<SliderProvider>(context);
     return Scaffold(
       backgroundColor: Color(0xFFEBEAFF),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            crossAxisSpacing: 2,
-            mainAxisSpacing: 2,
-            childAspectRatio: 8 / 9,
-          ),
-          itemCount: categories.length,
-          itemBuilder: (context, index) {
-            final category = categories[index];
-            return GestureDetector(
-              onTap: () {
-                print('Clicked on ${category['name']}');
-                /*Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    //builder: (context) => WordsScreen(category: category['name']),
-                    builder: (context) => VocabularyScreen(topic: topics[index],icon: topics[index].icon,),
-                  ),
-                );*/
-              },
-              child: Card(
-                elevation: 2,
-                // color: Color(0xFF03a9ff),//Color(0xFF00aeef),
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        category['icon'],
-                        width: 45,
-                        // height: 40,
-                      ),
-                      SizedBox(height: 4),
-                      Text(category['name'], style: TextStyle(fontSize: 13),textAlign: TextAlign.center,),
-                    ],
-                  ),
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              // sliderProvider.isLoading
+              //     ? const Center(child: CircularProgressIndicator())
+              //     :
+              sliderProvider.sliders.isEmpty
+                  ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 190,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                                    child: Card(
+                    elevation: 2,
+                    child: Center(child: Text("No sliders found")),
+                                    )
+                                    ),
+                  )
+                  : CarouselSlider.builder(
+                options: CarouselOptions(
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  viewportFraction: 1,
+                  aspectRatio: 2.2,
+                  initialPage: 0,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      currentIndex = index;
+                    });
+                  },
                 ),
+                itemCount: sliderProvider.sliders.length,
+                itemBuilder: (context, index, realIndex) {
+                  final slider = sliderProvider.sliders[index];
+                  String imageUrl = "$imgUrl/sliders/${slider.image}";
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      key: ValueKey(slider.id),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: NetworkImage(imageUrl),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
+
+              // Dots Indicator
+              Positioned(
+                bottom: 14,
+                left: 50,
+                right: 50,
+                child: sliderProvider.sliders.isNotEmpty
+                    ? DotsIndicator(
+                  dotsCount: sliderProvider.sliders.length,
+                  position: currentIndex,
+                  decorator: const DotsDecorator(
+                    color: Colors.white,
+                    activeColor: Colors.redAccent,
+                  ),
+                )
+                    : const SizedBox(), // Hide dots if no data
+              ),
+            ],
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  crossAxisSpacing: 0,
+                  mainAxisSpacing: 0,
+                  childAspectRatio: 8 / 9,
+                ),
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  final category = categories[index];
+                  return GestureDetector(
+                    onTap: () {
+                      print('Clicked on ${category['name']}');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DoctorsScreen(category: category['name'], icon: category['icon'],),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      elevation: 2,
+                      // color: Color(0xFF03a9ff),//Color(0xFF00aeef),
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              category['icon'],
+                              width: 45,
+                              // height: 40,
+                            ),
+                            SizedBox(height: 4),
+                            Text(category['name'], style: TextStyle(fontSize: 13),textAlign: TextAlign.center,),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

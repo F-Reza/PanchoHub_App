@@ -1,14 +1,25 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'providers/slider_provider.dart';
 import 'screens/contact_screen.dart';
+import 'screens/doctors_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/index.dart';
 import 'screens/notification_screen.dart';
 import 'screens/profile_screen.dart';
+import 'screens/slider_screen.dart';
 import 'widgets/main_drawer.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => SliderProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -32,6 +43,8 @@ class MyApp extends StatelessWidget {
         ContactScreen.routeName : (_) => const ContactScreen(),
         NotificationScreen.routeName : (_) => const NotificationScreen(),
         ProfileScreen.routeName : (_) => const ProfileScreen(),
+        DoctorsScreen.routeName : (_) => const DoctorsScreen(),
+        SliderScreen.routeName : (_) => const SliderScreen(),
 
 
       },
