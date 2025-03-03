@@ -3,9 +3,9 @@
 A new Flutter project for PanchoHub.
 
 ## Getting Started
-<img src="https://github.com/F-Reza/PanchoHub_App/blob/main/Untitled-2.png" width="100%"> 
+<img src="https://github.com/F-Reza/PanchoHub_App/blob/main/SnapShot/Untitled-2.png" width="100%"> 
 
-<img src="https://github.com/F-Reza/PanchoHub_App/blob/main/Untitled-1.png" width="60%"> 
+<img src="https://github.com/F-Reza/PanchoHub_App/blob/main/SnapShot/Untitled-1.png" width="60%"> 
 
 
 This project is a starting point for a Flutter application.
