@@ -26,7 +26,7 @@ This project includes the following screenshots demonstrating its features and f
 
 | Image 5 - Data Visualization | Image 6 - Play Store |
 | :---: | :---: |
-| <img src="https://github.com/F-Reza/PanchoHub_App/raw/main/SnapShot/m5.png" width="400"> | <img src="https://github.com/F-Reza/PanchoHub_App/raw/main/SnapShot/m6.png" width="400"> |
+| <img src="https://github.com/F-Reza/PanchoHub_App/raw/main/SnapShot/m5.png" width="400"> | <img src="https://github.com/F-Reza/PanchoHub_App/raw/main/SnapShot/ss2.png" width="360"> |
 
 | Image 7 - Tab 1 | Image 8 - Tab 2 |
 | :---: | :---: |
